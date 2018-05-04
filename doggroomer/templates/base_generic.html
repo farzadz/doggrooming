@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 
-  {% block title %}<title>Local Library</title>{% endblock %}
+  {% block title %}<title>Dog Lovers!</title>{% endblock %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -23,7 +23,7 @@
       <ul class="sidebar-nav">
           <li><a href="{% url 'index' %}">Home</a></li>
           <li><a href="">login</a></li>
-          <li><a href="">register</a></li>
+          <li><a href="{% url 'signup' %}">signup</a></li>
       </ul>
           {% if user.is_authenticated %}
      <li>User: {{ user.get_username }}</li>

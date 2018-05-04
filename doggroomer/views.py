@@ -19,26 +19,35 @@ def services(request):
 
 @login_required
 def my_appointments(request):
-    return render(request, 'my_appointments.html', context={'appointments': Appointment.objects.filter(user=request.user)})
+    return render(request, 'my_appointments.html', context={'appointments': Appointment.objects.filter(user=request.user)
+                                                            , 'dogs': Dog.objects.filter(user=request.user)})
 
 
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
+            user = form.save()
+            user.refresh_from_db()
+            user.profile.address = form.cleaned_data.get('address')
+            user.profile.full_name = form.cleaned_data.get('full_name')
+            user.profile.home_phone = form.cleaned_data.get('home_phone')
+            user.profile.work_phone = form.cleaned_data.get('work_phone')
+            user.save()
             raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
+            user = authenticate(username=user.username, password=raw_password)
             login(request, user)
-            return redirect('index')
+            return redirect('profile')
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
 
+@login_required
+def profile(request):
+    return render(request, 'profile.html', context={'appointments': Appointment.objects.filter(user=request.user)})
 
 @permission_required('is_superuser')
 def users_details(request):
-    return render(request, 'user_details.html', context={'users': User.objects.exclude(address__isnull=True)})
+    return render(request, 'users_details.html', context={'profiles': Profile.objects.all()})
 
 

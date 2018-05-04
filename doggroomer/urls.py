@@ -20,3 +20,7 @@ urlpatterns += [
 urlpatterns += [
     path('user_details/', views.users_details, name='user_details'),
 ]
+
+urlpatterns += [
+    path('profile/', views.profile, name='profile'),
+]

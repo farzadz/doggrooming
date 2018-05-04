@@ -1,8 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 
 
 # Create your models here.
+from django.dispatch import receiver
 from django.urls import reverse
 
 
@@ -42,6 +44,24 @@ class Dog(models.Model):
 #     def __str__(self):
 #         return self.name
 
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=50)
+    address = models.CharField(max_length=300, blank=False)
+    home_phone = models.IntegerField(null=True, blank=True)
+    work_phone = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return "user: " + str(self.user) + " " + " address:" + self.address
+
+@receiver(post_save, sender=User)
+def update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+    instance.profile.save()
+
+
 class Appointment(models.Model):
 
     title = models.CharField(max_length=200)
@@ -54,21 +74,15 @@ class Appointment(models.Model):
     start_time = models.DateTimeField(verbose_name="Starting time of the appointment")
 
     def get_user_address(self):
-        return self.user.address
+        return self.user.profile.address
 
     get_user_address.short_description = 'Address'
 
 
     def __str__(self):
-        """
-        String for representing the Model object.
-        """
         return str(self.user) + " " + str(self.start_time)
 
     def get_absolute_url(self):
-        """
-        Returns the url to access a detail record for this appointment.
-        """
         return reverse('appointment-detail', args=[str(self.id)])
 
 

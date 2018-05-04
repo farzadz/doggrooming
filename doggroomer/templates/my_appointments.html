@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>All appointments</h1>
+
+    {% if appointments %}
+    <ul>
+
+      {% for appointment in appointments %}
+          <li>{{appointment.description}} for {{ appointment.dog }} at {{ appointment.start_time }}</li>
+      {% endfor %}
+    </ul>
+
+    {% else %}
+      <p>There are no appointments yet.</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Services</h1>
+{% load static %}
+  <p><em>Here is the list of all services provided by</em> <strong> Dog Lovers</strong></p>
+
+{%  if services %}
+  <ul>
+  {% for service in services %}
+    <li><em>{{service.name}}: </em> : </em> {{service.price}} AUD </li>
+  {% endfor %}
+  </ul>
+{% endif %}
+{% endblock %}

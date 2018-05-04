@@ -10,3 +10,13 @@ urlpatterns = [
 urlpatterns += [
     path('myappointments/', views.my_appointments, name='my-appointments'),
 ]
+
+
+urlpatterns += [
+    path('signup/', views.signup, name='signup'),
+]
+
+
+urlpatterns += [
+    path('user_details/', views.users_details, name='user_details'),
+]

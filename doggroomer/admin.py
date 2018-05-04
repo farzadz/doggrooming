@@ -3,10 +3,10 @@ from .models import *
 
 # Register your models here.
 
-
-@admin.register(User)
-class UserAdmin(admin.ModelAdmin):
-    list_display = ('name', 'address', 'home_phone', 'work_phone')
+#
+# @admin.register(Client)
+# class UserAdmin(admin.ModelAdmin):
+#     list_display = ('name', 'address', 'home_phone', 'work_phone')
 
     # def display_dogs(self):
     #     """

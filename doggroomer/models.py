@@ -7,17 +7,19 @@ from django.urls import reverse
 
 
 class Option(models.Model):
-    """
-    Model representing a book genre (e.g. Science Fiction, Non Fiction).
-    """
+
     name = models.CharField(max_length=200, help_text="Enter grooming option here")
     price = models.FloatField("Price to be charged")
 
     def __str__(self):
-        """
-        String for representing the Model object (in Admin site etc.)
-        """
         return self.name + " " + str(self.price)
+
+
+# class Client(AbstractUser):
+#     name = models.CharField(max_length=50, blank=False)
+#     address = models.TextField(max_length=300, blank=False)
+#     home_phone = models.IntegerField(null=False, blank=False)
+#     work_phone = models.IntegerField(null=True, blank=True)
 
 class Dog(models.Model):
 
@@ -68,4 +70,5 @@ class Appointment(models.Model):
         Returns the url to access a detail record for this appointment.
         """
         return reverse('appointment-detail', args=[str(self.id)])
+
 

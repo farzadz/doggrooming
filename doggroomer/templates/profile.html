@@ -14,9 +14,24 @@
     <ul>
         {% for dog in dogs %}
 
-            <li>  {{ dog.name }}, born {{ dog.birth_data }} with breed  {{ dog.breed }}</li>
+            <li>  {{ dog.name }}, born {{ dog.birth_date }} with breed  {{ dog.breed }}</li>
         {% endfor %}
     </ul>
+    <h2>Add dog:</h2>
+      <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+    <button type="submit">Add the fluffy!</button>
+  </form>
 
     <h2>Your current address:</h2>
     <p>{{ request.user.profile.address }}</p>

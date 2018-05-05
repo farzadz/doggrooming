@@ -24,6 +24,7 @@
           <li><a href="{% url 'index' %}">Home</a></li>
           <li><a href="">login</a></li>
           <li><a href="{% url 'signup' %}">signup</a></li>
+            <li><a href="{% url 'services' %}"> Our services</a></li>
       </ul>
           {% if user.is_authenticated %}
      <li>User: {{ user.get_username }}</li>

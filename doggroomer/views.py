@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, permission_required
-from .forms import SignUpForm
+from .forms import SignUpForm, AddDogForm
 from django.shortcuts import render, redirect
 
 
@@ -44,7 +44,21 @@ def signup(request):
 
 @login_required
 def profile(request):
-    return render(request, 'profile.html', context={'appointments': Appointment.objects.filter(user=request.user)})
+    if request.method == 'POST':
+        form = AddDogForm(request.POST)
+        if form.is_valid():
+            # dog = form.save()
+            # dog.refresh_from_db()
+            dog = Dog(owner=request.user)
+            dog.name = form.cleaned_data.get('name')
+            dog.breed = form.cleaned_data.get('breed')
+            dog.birth_date = form.cleaned_data.get('birth_date')
+            dog.save()
+            return redirect('profile')
+    else:
+        form = AddDogForm()
+        return render(request, 'profile.html', context={'form': form , 'appointments': Appointment.objects.filter(user=request.user),
+                                                    'dogs': Dog.objects.filter(owner=request.user)})
 
 @permission_required('is_superuser')
 def users_details(request):

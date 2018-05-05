@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.forms import ModelForm
+
+from .models import Dog
 
 
 class SignUpForm(UserCreationForm):
@@ -13,3 +16,12 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'full_name', 'email', 'password1', 'password2','address')
+
+
+class AddDogForm(ModelForm):
+    name = forms.CharField(max_length=50, required=True, help_text="What's the name of the fluffy?")
+    breed = forms.CharField(max_length=50, required=True)
+    birth_date = forms.DateField(required=True)
+    class Meta:
+        model = Dog
+        fields = ('name', 'breed', 'birth_date')

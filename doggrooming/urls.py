@@ -22,12 +22,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 urlpatterns += [
-    path('doggroomer/', include('doggroomer.urls')),
+    path('', include('doggroomer.urls')),
 ]
 
 from django.views.generic import RedirectView
 urlpatterns += [
-    path('', RedirectView.as_view(url='/doggroomer/')),
+    path('', RedirectView.as_view(url='')),
 ]
 urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),

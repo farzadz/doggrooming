@@ -19,8 +19,9 @@ def services(request):
 
 @login_required
 def my_appointments(request):
+    usr_pk = User.objects.get(pk=request.user.pk)
     return render(request, 'my_appointments.html', context={'appointments': Appointment.objects.filter(user=request.user)
-                                                            , 'dogs': Dog.objects.filter(user=request.user)})
+                                                            , 'dogs': Dog.objects.filter(owner=request.user)})
 
 
 def signup(request):
@@ -57,6 +58,7 @@ def profile(request):
             return redirect('profile')
     else:
         form = AddDogForm()
+
         return render(request, 'profile.html', context={'form': form , 'appointments': Appointment.objects.filter(user=request.user),
                                                     'dogs': Dog.objects.filter(owner=request.user)})
 # @login_required

@@ -1,15 +1,30 @@
-{% extends "base_generic.html" %}
 
-{% block content %}
-<h1>Services</h1>
-{% load static %}
-  <p><em>Here is the list of all services provided by</em> <strong> Dog Lovers</strong></p>
+{% extends "base_generic.html" %} 
+{% block content %} 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js" label="Snap.svg">Snap.svg</script>
+    <h1 style="color:orange"><center>Services</center></h1> 
+{% load static %} 
+<div class="alert alert-info">
+  <strong>Lowest Price ever!</strong> 
+  <em>Here is the list of all services provided by</em> <strong> Dog Lovers</strong>
+</div>
 
-{%  if services %}
-  <ul>
-  {% for service in services %}
-    <li><em>{{service.name}}: </em> : </em> {{service.price}} $ </li>
-  {% endfor %}
-  </ul>
+{%if services %}
+<img src="{% static 'images/dog-service.jpg' %}" class="img-thumbnail" alt="Cinque Terre"> 
+<table class="table table-hover">
+    <tbody>
+      <tr class="active">
+        <th>Service</th>
+        <th>Price(AUD)</th>
+      </tr>
+        {% for service in services %}
+          <tr>
+              <td>{{service.name}}</td>
+              <td>{{service.price}}</td>
+          </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+
 {% endif %}
 {% endblock %}

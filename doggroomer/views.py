@@ -59,6 +59,8 @@ def profile(request):
         form = AddDogForm()
         return render(request, 'profile.html', context={'form': form , 'appointments': Appointment.objects.filter(user=request.user),
                                                     'dogs': Dog.objects.filter(owner=request.user)})
+# @login_required
+# def book_appointment(request):
 
 @permission_required('is_superuser')
 def users_details(request):

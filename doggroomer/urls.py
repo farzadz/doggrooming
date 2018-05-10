@@ -24,3 +24,7 @@ urlpatterns += [
 urlpatterns += [
     path('profile/', views.profile, name='profile'),
 ]
+
+urlpatterns += [
+    path('booking', views.booking, name='booking')
+]

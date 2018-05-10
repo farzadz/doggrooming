@@ -1,9 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.forms import ModelForm
+from django.forms import ModelForm, Form
 
-from .models import Dog
+from .models import Dog, Option
 
 
 class SignUpForm(UserCreationForm):
@@ -25,3 +25,17 @@ class AddDogForm(ModelForm):
     class Meta:
         model = Dog
         fields = ('name', 'breed', 'birth_date')
+
+
+class AddAppointmentForm(Form):
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(Form, self).__init__(*args, **kwargs)
+        options = Option.objects.all()
+        dogs = Dog.objects.filter(owner=self.request.user)
+        for option in options:
+            self.fields[option.name] = forms.BooleanField()
+
+
+        self.fields['DOG'] = forms.ChoiceField(choices=enumerate([dog.name for dog in dogs]), widget=forms.RadioSelect())
+

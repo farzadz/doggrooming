@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, permission_required
-from .forms import SignUpForm, AddDogForm
+from .forms import *
 from django.shortcuts import render, redirect
 
 
@@ -19,9 +19,14 @@ def services(request):
 
 @login_required
 def my_appointments(request):
-    usr_pk = User.objects.get(pk=request.user.pk)
     return render(request, 'my_appointments.html', context={'appointments': Appointment.objects.filter(user=request.user)
                                                             , 'dogs': Dog.objects.filter(owner=request.user)})
+
+@login_required
+def booking(request):
+
+    ##############################
+    return render(request, 'signup.html', {'form': AddAppointmentForm(request=request)})
 
 
 def signup(request):

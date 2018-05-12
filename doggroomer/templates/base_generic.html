@@ -22,8 +22,12 @@
       {% block sidebar %}
       <ul class="sidebar-nav">
           <li><a href="{% url 'index' %}">Home</a></li>
-          <li><a href="">login</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'profile' %}">Profile</a></li>
+
+          {% else %}
           <li><a href="{% url 'signup' %}">signup</a></li>
+          {% endif %}
             <li><a href="{% url 'services' %}"> Our services</a></li>
       </ul>
           {% if user.is_authenticated %}

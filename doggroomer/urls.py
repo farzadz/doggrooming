@@ -1,3 +1,4 @@
+from django.conf.urls import url
 from django.urls import path
 from . import views
 
@@ -27,5 +28,9 @@ urlpatterns += [
 
 
 urlpatterns += [
-    path('booking', views.booking, name='booking')
+    path('booking/', views.booking, name='booking')
+]
+
+urlpatterns += [
+    url(r'^delete_appointment/(\d+)/$', views.delete_appointment, name='delete_appointment')
 ]

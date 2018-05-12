@@ -24,10 +24,8 @@ urlpatterns += [
 urlpatterns += [
     path('profile/', views.profile, name='profile'),
 ]
-<<<<<<< HEAD
+
 
 urlpatterns += [
     path('booking', views.booking, name='booking')
 ]
-=======
->>>>>>> origin/Frontend

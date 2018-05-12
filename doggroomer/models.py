@@ -49,8 +49,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=50)
     address = models.CharField(max_length=300, blank=False)
-    home_phone = models.IntegerField(null=True, blank=True)
-    work_phone = models.IntegerField(null=True, blank=True)
+    phone = models.CharField(max_length=10, null=True, blank=True)
 
     def __str__(self):
         return "user: " + str(self.user) + " " + " address:" + self.address

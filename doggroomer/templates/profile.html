@@ -35,12 +35,8 @@
 
     <h2>Your current address:</h2>
     <p>{{ request.user.profile.address }}</p>
-    <h2>Your user name:</h2>
-    <p>{{ request.user.username }}</p>
-    <h2>Your home phone:</h2>
-    <p>{{ request.user.profile.home_phone }}</p>
-    <h2>Your work phone:</h2>
-    <p>{{ request.user.profile.work_phone }}</p>
-
-
+    <h2>Your name:</h2>
+    <p>{{ request.user.profile.full_name }}</p>
+    <h2>Your phone:</h2>
+    <p>{{ request.user.profile.phone }}</p>
 {% endblock %}

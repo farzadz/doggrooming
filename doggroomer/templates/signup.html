@@ -1,87 +1,82 @@
-{% extends 'base_generic.html' %}
+{#{% extends 'base_generic.html' %}#}
+{##}
+{#{% block content %}#}
+{#  <h2>Sign up</h2>#}
+{#  <form method="post">#}
+{#    {% csrf_token %}#}
+{#    {% for field in form %}#}
+{#      <p>#}
+{#        {{ field.label_tag }}<br>#}
+{#        {{ field }}#}
+{##}
+{#        {% for error in field.errors %}#}
+{#          <p style="color: red">{{ error }}</p>#}
+{#        {% endfor %}#}
+{#      </p>#}
+{#    {% endfor %}#}
+{#    <button type="submit">Sign up</button>#}
+{#  </form>#}
+{#{% endblock %}#}
 
-{% block content %}
-  <h2>Sign up</h2>
-  <form method="post">
+
+
+
+<head>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet" type="text/css">
+<form action="" method="post">
     {% csrf_token %}
-    {% for field in form %}
-      <p>
-        {{ field.label_tag }}<br>
-        {{ field }}
-
-        {% for error in field.errors %}
-          <p style="color: red">{{ error }}</p>
-        {% endfor %}
-      </p>
-    {% endfor %}
-    <button type="submit">Sign up</button>
-  </form>
-{% endblock %}
+    {%  load static %}
+    <link rel="stylesheet" media="all" href="{% static 'css/my.css' %}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" label="jQuery">jQuery</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js" label="Snap.svg">Snap.svg</script>
 
 
 
 
-{#<head>#}
-{#    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">#}
-{#    <link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet" type="text/css">#}
-{#<form action="" method="post">#}
-{#    {%  load static %}#}
-{#    <link rel="stylesheet" media="all" href="{% static 'css/my.css' %}">#}
-{#<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" label="jQuery">jQuery</script>#}
-{#<script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js" label="Snap.svg">Snap.svg</script>#}
-{##}
-{##}
-{##}
-{##}
-{#  <!--  General -->#}
-{#  <div class="form-group">#}
-{#    <h2 class="heading">Booking &amp; contact</h2>#}
-{#    <div class="controls">#}
-{#      <input id="name" class="floatLabel" name="name" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;" type="text">#}
-{#      <label for="name">Name</label>#}
-{#    </div>#}
-{#    <div class="controls">#}
-{#      <input id="email" class="floatLabel" name="email" type="text">#}
-{#      <label for="email">Email</label>#}
-{#    </div>#}
-{#    <div class="controls">#}
-{#      <input id="phone" class="floatLabel" name="phone" type="tel">#}
-{#      <label for="phone">Phone</label>#}
-{#    </div>#}
-{#      <div class="grid">#}
-{#        <div class="col-2-3">#}
-{#          <div class="controls">#}
-{#           <input id="street" class="floatLabel" name="street" type="text">#}
-{#           <label for="street">Street</label>#}
-{#          </div>#}
-{#        </div>#}
-{#        <div class="col-1-3">#}
-{#          <div class="controls">#}
-{#            <input id="street-number" class="floatLabel" name="street-number" type="number">#}
-{#            <label for="street-number">Number</label>#}
-{#          </div>#}
-{#        </div>#}
-{#      </div>#}
-{#      <div class="grid">#}
-{#        <div class="col-2-3">#}
-{#          <div class="controls">#}
-{#            <input id="city" class="floatLabel" name="city" type="text">#}
-{#            <label for="city">City</label>#}
-{#          </div>#}
-{#        </div>#}
-{#        <div class="col-1-3">#}
-{#          <div class="controls">#}
-{#            <input id="post-code" class="floatLabel" name="post-code" type="text">#}
-{#            <label for="post-code">Post Code</label>#}
-{#          </div>#}
-{#        </div>#}
-{#      </div>#}
-{#      <div class="controls">#}
-{#        <input id="country" class="floatLabel" name="country" type="text">#}
-{#        <label for="country">Country</label>#}
-{#      </div>#}
-{#  </div>#}
-{#            <button type="submit" value="Submit" class="col-1-4">Submit</button>#}
-{##}
-{#</form>#}
-{#    <script src="{% static 'js/my.js' %}"></script>#}
+  <!--  General -->
+  <div class="form-group">
+    <h2 class="heading">Booking &amp; contact</h2>
+    <div class="controls">
+      <input id="name" class="floatLabel" name="name" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;" type="text">
+      <label for="name">Name</label>
+    </div>
+    <div class="controls">
+      <input id="email" class="floatLabel" name="email" type="text">
+      <label for="email">Email</label>
+    </div>
+    <div class="controls">
+      <input id="phone" class="floatLabel" name="phone" type="tel">
+      <label for="phone">Phone</label>
+    </div>
+      <div class="grid">
+        <div class="col-2-3">
+          <div class="controls">
+           <input id="address" class="floatLabel" name="address" type="text">
+           <label for="address">Address</label>
+          </div>
+        </div>
+         <div class="grid">
+        <div class="col-1-3">
+          <div class="controls">
+            <input id="post-code" class="floatLabel" name="post-code" type="text">
+            <label for="post-code">Post Code</label>
+          </div>
+        </div>
+
+      </div>
+      </div>
+     <div class="grid">
+        <div class="col-1-3">
+          <div class="controls">
+            <input id="password" class="floatLabel" name="password" type="text">
+            <label for="password">Password</label>
+          </div>
+        </div>
+      </div>
+
+  </div>
+            <button type="submit" value="Submit" class="col-1-4">Submit</button>
+
+</form>
+    <script src="{% static 'js/my.js' %}"></script>

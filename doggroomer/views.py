@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect
 from .tasks import send_reminder_email_task
 
 from .models import *
-
+from dateutil import parser
 
 def index(request):
     """
@@ -33,21 +33,36 @@ def booking(request):
         # if form.is_valid():
             # send_reminder_email_task.apply_async(eta=datetime.datetime.now() + datetime.timedelta(seconds=10), booking_time="Now", dog_name="Husky", email="farzad.vazir@gmail.com")
         options = request.POST.getlist('service_id')
-        options = [int(option) for option in options]
-        start_time = request.POST.get('start_time')
-        print(start_time + '**************************')
-        dog = Dog.objects.get(request.POST.get('dog_id'))
+        options_id = [int(option) for option in options]
+        start_time = request.POST.get('start_time').split(':')
+        print(request.POST.get('appointment_date'))
+        appointment_date = request.POST.get('appointment_date').split('-')
+        date = datetime.date(int(appointment_date[0]), int(appointment_date[1]), int(appointment_date[2]))
+        time_ = datetime.time(int(start_time[0]), int(start_time[1]))
+        print('date is')
+        print(date)
+        print('time is')
+        print(time_)
+        final_datetime = datetime.datetime.combine(date, time_)
+        print('final')
+        print(final_datetime)
+        dog = Dog.objects.get(pk=int(request.POST.get('dog_id')))
         description = request.POST.get('comments')
-        appointment = Appointment.objects.create(user=request.user, description=description, dog=dog)
+        appointment = Appointment.objects.create(user=request.user,
+                                                 description=description, dog=dog, start_time=final_datetime)
         appointment.save()
-        appointment.option.add(options)
+        for option_id in options_id:
+            appointment.option.add(Option.objects.get(pk=option_id))
+        appointment.save()
         return render(request, 'profile.html',context={ 'appointments': Appointment.objects.filter(user=request.user),
                                                     'dogs': Dog.objects.filter(owner=request.user)})
     else:
             ########################################
-        return render(request, 'booking.html', {'services': Option.objects.all(),
+        times = ['9:00', '10:30', '12:00', '13:30']
+        return render(request, 'booking2.html', {'services': Option.objects.all(),
                                                 'dogs': Dog.objects.filter(owner=request.user),
-                                                'form': AddAppointmentForm(request=request)})
+                                                'form': AddAppointmentForm(request=request),
+                                                 'times':times})
 
 def signup(request):
     if request.method == 'POST':
@@ -80,13 +95,15 @@ def profile(request):
             dog.birth_date = form.cleaned_data.get('birth_date')
             dog.save()
             return redirect('profile')
+        else:
+            return request('profile')
     else:
         form = AddDogForm()
 
         melbourne_tz = pytz.timezone('Australia/Melbourne')
         melbourne_dt = melbourne_tz.localize(datetime.datetime.now() + datetime.timedelta(seconds=10))
         give_this_to_celery = melbourne_dt.astimezone(pytz.UTC)
-        send_reminder_email_task.apply_async(("Now", "Husky", "farzad.vazir@gmail.com"), eta=give_this_to_celery)
+        # send_reminder_email_task.apply_async(("Now", "Husky", "farzad.vazir@gmail.com"), eta=give_this_to_celery)
 
         return render(request, 'profile.html', context={'form': form , 'appointments': Appointment.objects.filter(user=request.user),
                                                     'dogs': Dog.objects.filter(owner=request.user)})
@@ -97,4 +114,18 @@ def profile(request):
 def users_details(request):
     return render(request, 'users_details.html', context={'profiles': Profile.objects.all()})
 
+@login_required
+def delete_appointment(request, id):
 
+    app = Appointment.objects.get(pk=id)
+    if app:
+        app.delete()
+    return redirect('profile')
+     # return render(request, 'profile.html',context={'appointments': Appointment.objects.filter(user=request.user),
+     #                                                'dogs': Dog.objects.filter(owner=request.user)})
+@login_required
+def delete_dog(request, id):
+    dog = Dog.objects.get(pk=id)
+    if dog:
+        dog.delete()
+    return redirect('profile')

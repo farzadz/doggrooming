@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<form method="post">
+{% csrf_token %}
+
+    <input type="date" name="appointment_date">
+{#    <input type="time" name="start_time">#}
+     <fieldset id="available_times">
+         {% for time in times %}
+             # Should be fixed!!!!
+        <input type="radio" value="12:00" name="start_time" id="start_time">
+         <label for="start_time">{{ time }}</label>
+         {% endfor %}
+    </fieldset>
+
+    <fieldset id="dogs">
+        {% for dog in dogs %}
+        <input type="radio" value="{{ dog.pk }}" name="dog_id" id="dog">
+        <label for="dog">{{ dog.name }}</label>
+        {% endfor %}
+    </fieldset>
+
+
+    <fieldset id="dogs">
+        {% for service in services %}
+        <input type="checkbox" value="{{ service.pk }}" name="service_id" id="service">
+        <label for="service">{{ service.name }} {{ service.price }}</label>
+        {% endfor %}
+    </fieldset>
+
+    <input type="text" name="comments" id="comments">
+    <label for="comments">Commnet</label>
+    <button type="submit">Book</button>
+</form>
+</body>
+</html>

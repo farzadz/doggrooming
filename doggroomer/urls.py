@@ -32,5 +32,13 @@ urlpatterns += [
 ]
 
 urlpatterns += [
+    path('contactus/', views.contact_us, name='contact_us')
+]
+
+urlpatterns += [
     url(r'^delete_appointment/(\d+)/$', views.delete_appointment, name='delete_appointment')
+]
+
+urlpatterns += [
+    url(r'^delete_dog/(\d+)/$', views.delete_dog, name='delete_dog')
 ]

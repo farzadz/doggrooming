@@ -16,7 +16,7 @@
     <ul>
         {% for dog in dogs %}
 
-            <li>  {{ dog.name }}, born {{ dog.birth_date }} with breed  {{ dog.breed }}</li>
+            <li>  {{ dog.name }}, born {{ dog.birth_date }} with breed  {{ dog.breed }} <a href="{%  url 'delete_dog' dog.pk %}">remove</a></li>
         {% endfor %}
     </ul>
     {% endif %}

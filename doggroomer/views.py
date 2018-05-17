@@ -130,3 +130,6 @@ def delete_dog(request, id):
     if dog:
         dog.delete()
     return redirect('profile')
+
+def contact_us(request):
+    return render(request, 'contactus.html')

@@ -29,6 +29,7 @@
           <li><a href="{% url 'signup' %}">signup</a></li>
           {% endif %}
             <li><a href="{% url 'services' %}"> Our services</a></li>
+      <li><a href="{% url 'contact_us' %}"> Contact us</a></li>
       </ul>
           {% if user.is_authenticated %}
      <li>User: {{ user.get_username }}</li>

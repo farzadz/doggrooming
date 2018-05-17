@@ -49,7 +49,10 @@
     <p>{{ request.user.profile.full_name }}</p>
     <h2>Your phone:</h2>
     <p>{{ request.user.profile.phone }}</p>
-
+    {% if dogs %}
     <a href="{% url 'booking' %}"> Add appointment </a>
+    {% else %}
+        <p><b>Please add a dog to book an appointment!</b></p>
+    {% endif %}
 
 {% endblock %}

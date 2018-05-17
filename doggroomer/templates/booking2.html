@@ -13,11 +13,10 @@
     <input type="date" name="appointment_date">
 {#    <input type="time" name="start_time">#}
      <fieldset id="available_times">
-         {% for time in times %}
              # Should be fixed!!!!
-        <input type="radio" value="12:00" name="start_time" id="start_time">
+         <input type="radio" value="12:00" name="start_time" id="start_time">
          <label for="start_time">{{ time }}</label>
-         {% endfor %}
+         <!-- other fields should be added -->
     </fieldset>
 
     <fieldset id="dogs">

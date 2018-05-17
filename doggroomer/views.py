@@ -55,7 +55,8 @@ def booking(request):
             appointment.option.add(Option.objects.get(pk=option_id))
         appointment.save()
         return render(request, 'profile.html',context={ 'appointments': Appointment.objects.filter(user=request.user),
-                                                    'dogs': Dog.objects.filter(owner=request.user)})
+                                                 'dogs': Dog.objects.filter(owner=request.user)})
+
     else:
             ########################################
         times = ['9:00', '10:30', '12:00', '13:30']

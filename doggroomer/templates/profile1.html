@@ -1,7 +1,6 @@
 {% extends 'base_generic.html' %}
 
 {% block content %} {% if appointments %}
-<center>
   <h2>Here is the list of all your appointments:</h2>
     <table class="table table-hover">
     <thead>
@@ -9,20 +8,19 @@
         <th>Name</th>
         <th>Appointment Datetime</th>
         <th>Appointment Place</th>
-        <th>Cancel</th>
       </tr>
     </thead>
     <tbody>
         {% for appointment in appointments %}
             <tr>
             <td><strong> {{ appointment.dog.name }} </strong></td>
-            <td> {{ appointment.start_time }} </td> 
-            <td> {{ request.user.profile.address }} </td>
-            <td><a href="{%  url 'delete_appointment' appointment.pk %}">cancel</a></td>
+            <td> {{ appointment.start_time }} </td> <td> {{ dog.breed }} </td>
+            <td><a href="{%  url 'delete_dog' dog.pk %}">remove</a></td>
             </tr>
 
         {% endfor %}
 
+            <li> For {{ appointment.dog.name }} at: {{ appointment.start_time }}  {{ profile.address }}  <a href="{%  url 'delete_appointment' appointment.pk %}">cancel</a>  </li>
 
     </tbody>
     </table>
@@ -71,34 +69,20 @@
             <input style="width: 30%;" type="text" class="form-control" name="breed" aria-describedby="breedHelp" placeholder="Enter Dog's Breed">
             <input style="width: 30%;" type="date" class="form-control" name="birth_date" aria-describedby="birthdayHelp" placeholder="Enter Dog's Birthday">
 
+
     <button type="submit">Add Dog</button>
   </form>
-  <br>
-  <br>
+
+    <h2>Your current address:</h2>
+    <p>{{ request.user.profile.address }}</p>
+    <h2>Your name:</h2>
+    <p>{{ request.user.profile.full_name }}</p>
+    <h2>Your phone:</h2>
+    <p>{{ request.user.profile.phone }}</p>
     {% if dogs %}
-    <a href="{% url 'booking' %}" style="font-size:20px"><button style="width:260px;height:50px;border-radius:6px"> Add appointment </button></a>
+    <a href="{% url 'booking' %}"> Add appointment </a>
     {% else %}
         <p><b>Please add a dog to book an appointment!</b></p>
     {% endif %}
 
-    <h2>Your Details:</h2>
-    <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Current address</th>
-        <th>Phone</th>
-      </tr>
-    </thead>
-    <tbody>
-            <tr>
-            <td>{{ request.user.profile.full_name }}</td>
-            <td>{{ request.user.profile.address }}</td>
-            <td>{{ request.user.profile.phone }}</td>
-            </tr>
-
-    </tbody>
-    </table>
-
-</center>
 {% endblock %}
